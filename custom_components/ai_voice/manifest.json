@@ -1,0 +1,10 @@
+{
+  "domain": "ai_voice",
+  "name": "AI Voice Component",
+  "version": "1.0.0",
+  "documentation": "https://github.com/yourusername/esp32-bluetooth-speaker/blob/main/README.md",
+  "dependencies": [],
+  "requirements": [],
+  "codeowners": ["@yourusername"],
+  "iot_class": "cloud_polling"
+}

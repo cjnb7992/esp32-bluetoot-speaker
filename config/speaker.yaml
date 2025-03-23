@@ -1,0 +1,50 @@
+esphome:
+  name: esp32_bluetooth_speaker
+  platform: ESP32
+  board: esp32dev
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+logger:
+
+api:
+  services:
+    - service: play_music
+      variables:
+        track: string
+      then:
+        - bluetooth.play: !lambda 'return track;'
+
+ota:
+
+bluetooth:
+  # Bluetooth settings
+  device_name: "ESP32 Bluetooth Speaker"
+  # Enable Bluetooth audio
+  audio:
+    output: 
+      - platform: i2s
+        i2s_num: 0
+        i2s_format: I2S_FORMAT_PCM
+        i2s_sample_rate: 44100
+        i2s_bits_per_sample: 16
+        i2s_channels: 2
+
+audio_output:
+  - platform: i2s
+    i2s_num: 0
+    i2s_format: I2S_FORMAT_PCM
+    i2s_sample_rate: 44100
+    i2s_bits_per_sample: 16
+    i2s_channels: 2
+
+# Home Assistant integration for voice commands
+homeassistant:
+  api_key: !secret home_assistant_api_key
+  voice_commands:
+    - command: "play {track}"
+      service: play_music
+      parameters:
+        track: "{track}"
